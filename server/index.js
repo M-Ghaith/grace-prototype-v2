@@ -25,13 +25,13 @@ async function loadGracePrompt() {
         throw new Error('Failed to load Grace. Please refresh the app.');
     }
 }
+loadGracePrompt();
 
 fastify.post('/', async (req, res) => {
   const data = req.body.prompt;
   console.log(data)
   let prompt;
   if (data.length === 1) {
-    loadGracePrompt();
     grace_prompt.push(data[0]);
     prompt = grace_prompt;
   } else {
