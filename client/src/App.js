@@ -23,7 +23,10 @@ function App() {
     console.log("Chat log: ", updateChatLog);
     await setChatLog(updateChatLog);
     await setInput("");
-    setIsTyping(true); 
+
+    setTimeout(()=>{
+      setIsTyping(true);
+    }, 400);
 
     try {
       const response = await fetch("https://grace-prototype.onrender.com/", {
@@ -79,8 +82,7 @@ function App() {
       <section className="chatbox" ref={chatBoxRef}>
       {chatLog.length === 0 && (
         <div className="empty-chat">
-          <h3>We have experienced some technical difficulties that have resulted in slower response times and decreased efficiency. Please rest assured that our team is working around the clock to improve the user experience, and we are doing everything in our power to resolve the issue as quickly as possible.</h3>
-          <p>We appreciate your participation in using the Grace, and we encourage you to share your thoughts and emotions openly and honestly, engage in conversations with Grace, and consider the it's guidance and suggestions.</p>
+          <h3>We apologize for any inconvenience caused by slow response times or any other issues that may be affecting your experience. Please know that we are actively working to resolve these problems as quickly as possible to ensure a smoother and more enjoyable experience for you. Thank you for your patience and understanding.</h3>
           <p>Your personal information will not be collected or shared, and your chat is not saved on our servers to ensure privacy and confidentiality.</p>
         </div>
         )}
