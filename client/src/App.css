@@ -1,0 +1,246 @@
+.App {
+  text-align: center;
+  display: flex;
+  background-color: #240046;
+  color: white;
+  position: absolute;
+  top: 0; bottom: 0;right: 0; left: 0;
+  background-image: linear-gradient(rgb(69, 51, 134), #240046);
+
+}
+
+.sidemenu{
+  width: 20%;
+  background-color: #FF9E00;
+  padding: 1%;
+  background-image: linear-gradient(#e2a560, #240046);
+  overflow: auto;
+}
+/* Hide the scrollbar */
+.sidemenu::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.sidemenu::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.sidemenu::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.117);
+}
+.chatbox{
+  flex:1;
+  position: relative;
+  overflow: auto;
+  height: 89%;
+}
+.letop{
+  border: 1px solid wheat;
+  background-color: rgba(229, 224, 209, 0.314);
+  border-radius: 5px;
+  padding: 3%;
+  font-weight: 800;
+}
+
+.side-menu-button{
+  padding: 4%;
+  border: 1px solid wheat;
+  border-radius: 5px;
+  text-align: left;
+  transition: ease 0.25s all;
+}
+.side-menu-button:hover {
+  cursor: pointer;
+}
+
+.side-menu-button:hover{
+  background-color: rgba(255,255,255,0.1);
+}
+
+.side-menu-button span{
+  padding-left: 6px;
+  padding-right: 10px;
+}
+.chat-input-holder{
+  padding: 1.5%;
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+}
+
+.chat-input-textarea{
+  background-color: rgb(69, 51, 134);
+  width: 75%;
+  height: 2%;
+  border-radius: 5px;
+  border: none;
+  border-color: none;
+  margin: 1%;
+  margin-left: 21%;
+  position: center;
+  outline: none;
+  box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+  padding: 0.8%;
+  color: white;
+  font-size: 1em;
+}
+@media (max-width: 768px) {
+  .chat-input-textarea{
+    background-color: rgb(69, 51, 134);
+    width: 80%;
+    height: 5%;
+    border-radius: 5px;
+    border: none;
+    border-color: none;
+    margin: 4%;
+    position: center;
+    outline: none;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+    padding: 3%;
+    color: white;
+    font-size: 1em;
+  }
+}
+
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.chat-log{
+  text-align: left;
+}
+
+.chat-message.chatgpt{
+  background-color: rgba(255,255,255,0.1);
+  border-top-right-radius: 20%;
+  border-bottom-left-radius: 20%;
+  padding: 2px;
+}
+
+.chat-message-center{
+  max-width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  padding: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.avatar{
+  background: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-image: url("img/user_icon.png");
+  background-size: 40px;
+}
+
+.avatar.chatgpt{
+  background: rgb(113, 28, 210);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-image: url("img/Grace_023.ico"); 
+  background-size: 40px;
+}
+
+
+.message{
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 7px;
+  word-wrap: break-word;
+  max-width: 90%; /* Set the maximum width of the message div */
+
+}
+
+.info-session{
+  text-align: left;
+  padding: 8px;
+}
+
+.hover-text{
+  display: none;
+  padding: 15px;
+  font-size: 14px;
+  color: rgba(250, 248, 246, 0.73);
+}
+
+.side-menu-button:hover .hover-text{
+  display: block;
+}
+
+.empty-chat {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.478);
+  color: white;
+  padding: 3rem;
+  border-radius: 1.6rem;
+  text-align: left;
+  width: 60%;
+  word-wrap: break-word;
+  }
+  .empty-chat h3{
+    color: rgba(252, 84, 0, 0.848);
+  }
+  @media (max-width: 768px)  {
+    .empty-chat {
+    border-radius: 1.8rem;
+    text-align: left;
+    width: 83%;
+    }
+  }
+
+  #grace_logo{
+    fill: white;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .info-session p{
+    color: rgba(250, 248, 246, 0.592);
+  }
+  .info-session a {
+    color: white;
+    font-size: 13px;
+  }
+
+  @media (max-width: 768px) {
+    .sidemenu {
+      display: none;
+    }
+  }
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
