@@ -18,8 +18,12 @@ const openai = new OpenAIApi(configuration);
 let grace_prompt = [];
 
 async function loadGracePrompt() {
-  const data = await fs.readFile('./grace_prompt.json');
-  grace_prompt = JSON.parse(data);
+    try {
+        const data = await fs.readFile('./grace_prompt.json');
+        grace_prompt = JSON.parse(data);
+    } catch (err) {
+        throw new Error('Failed to load Grace. Please refresh the app.');
+    }
 }
 
 fastify.post('/', async (req, res) => {
