@@ -36,10 +36,12 @@
 }
 .letop{
   border: 1px solid wheat;
-  background-color: rgba(229, 224, 209, 0.314);
+  background-color: rgba(255, 255, 255, 0.065);
   border-radius: 5px;
   padding: 3%;
   font-weight: 800;
+  background-image: linear-gradient(#e2a5602b, #5b139f31);
+
 }
 
 .side-menu-button{
@@ -224,7 +226,7 @@
     margin-bottom: 20px;
   }
   .info-session p{
-    color: rgba(250, 248, 246, 0.592);
+    color: rgba(250, 248, 246, 0.738);
   }
   .info-session a {
     color: white;

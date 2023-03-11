@@ -71,7 +71,7 @@ function App() {
         <div className='info-session'>
           <p>Note: if the page refreshes, your current chat will be lost.</p>
           <h4>Send one message at a time.</h4>
-          <div className='letop'><p>In case the Grace stops to respond, please send a follow-up message such as "Are you still there?" without having to refresh the page to save your conversation.</p></div>
+          <div className='letop'><p>If Grace stops to respond, please send a follow-up message such as "Are you still there?" without having to refresh the page to save your conversation.</p></div>
           <h4>We recommend using a desktop computer for a better user experience.</h4>
           <p>This is a limited prototype for the purpose of the study and does not represent the final product.</p>
           <p>While we have taken measures to ensure its functionality and privacy, it may still have limitations, and issues.</p>
