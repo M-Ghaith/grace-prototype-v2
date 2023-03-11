@@ -26,7 +26,7 @@ function App() {
     setIsTyping(true); 
 
     try {
-      const response = await fetch("http://localhost:3080/", {
+      const response = await fetch("https://grace-prototype.onrender.com/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
