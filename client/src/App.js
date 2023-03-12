@@ -11,6 +11,7 @@ function App() {
 
   function clearChat(){
     setChatLog([]);
+    setIsTyping(false);
   }
 
 
@@ -29,7 +30,7 @@ function App() {
     }, 400);
 
     try {
-      const response = await fetch("https://grace-prototype.onrender.com/", {
+      const response = await fetch("http://localhost:3080/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
