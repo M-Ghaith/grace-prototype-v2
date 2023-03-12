@@ -83,7 +83,7 @@ function App() {
       <section className="chatbox" ref={chatBoxRef}>
       {chatLog.length === 0 && (
         <div className="empty-chat">
-          <h3>We apologize for any inconvenience caused by slow response times or any other issues that may be affecting your experience. Please know that we are actively working to resolve these problems as quickly as possible to ensure a smoother and more enjoyable experience for you. Thank you for your patience and understanding.</h3>
+          <h3>We apologize for any inconvenience caused by slow response times or any other issues that may be affecting your experience. Please know that we are actively working to resolve these problems as quickly as possible to ensure a smoother and more enjoyable experience. Thank you for your patience and understanding.</h3>
           <p>Your personal information will not be collected or shared, and your chat is not saved on our servers to ensure privacy and confidentiality.</p>
         </div>
         )}
