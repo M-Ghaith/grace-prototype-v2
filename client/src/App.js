@@ -25,12 +25,13 @@ function App() {
     await setChatLog(updateChatLog);
     await setInput("");
 
+    const delay = Math.floor(Math.random() * 1500)+500;
     setTimeout(()=>{
       setIsTyping(true);
-    }, 400);
+    }, delay);
 
     try {
-      const response = await fetch("https://grace-prototype.onrender.com/", {
+      const response = await fetch("https://grace-prototype.onrender.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -42,7 +43,11 @@ function App() {
       const data = await response.json();
       const assistantMessage = { role: "assistant", content: data.message.content};
       const updatedChatLogWithAssistantMessage = [...updateChatLog, assistantMessage];
-      await setChatLog(updatedChatLogWithAssistantMessage);
+      const delay = Math.max(500, assistantMessage.content.length * 5);      
+      setTimeout(() => {
+        setChatLog(updatedChatLogWithAssistantMessage);
+        setIsTyping(false);
+      }, delay);
     } catch (error) {
       console.error("React: API connection failed.");
       setIsTyping(false); // Set typing indicator to false after API call is completed
@@ -53,7 +58,6 @@ function App() {
       await setChatLog(updatedChatLogWithError);
       return;
     }
-    setIsTyping(false);
   }
 
   useEffect(() => {
@@ -74,7 +78,6 @@ function App() {
           <h4>Send one message at a time.</h4>
           <div className='letop'><p>If Grace stops to respond, please send a follow-up message such as "Are you still there?" without having to refresh the page to save your conversation.</p></div>
           <h4>We recommend using a desktop computer for a better user experience.</h4>
-          <p>This is a limited prototype for the purpose of the study and does not represent the final product.</p>
           <p>While we have taken measures to ensure its functionality and privacy, it may still have limitations, and issues.</p>
           <p>If you encounter any problems or have concerns regarding your participation in the study or the functionality of the prototype, please do not hesitate to contact us.</p>
           <a href='info@grace-ai.co'>info@grace-ai.co</a>
@@ -83,7 +86,9 @@ function App() {
       <section className="chatbox" ref={chatBoxRef}>
       {chatLog.length === 0 && (
         <div className="empty-chat">
-          <h3>We apologize for any inconvenience caused by slow response times or any other issues that may be affecting your experience. Please know that we are actively working to resolve these problems as quickly as possible to ensure a smoother and more enjoyable experience. Thank you for your patience and understanding.</h3>
+          <div className="grace_logo"></div>
+          <h3>This is a limited prototype and does not represent the final product.</h3>
+          <p>We are actively working to ensure a smoother and more enjoyable experience.</p>
           <p>Your personal information will not be collected or shared, and your chat is not saved on our servers to ensure privacy and confidentiality.</p>
         </div>
         )}
