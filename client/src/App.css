@@ -5,15 +5,18 @@
   color: white;
   position: absolute;
   top: 0; bottom: 0;right: 0; left: 0;
-  background-image: linear-gradient(rgb(69, 51, 134), #240046);
+}
 
+
+.grace_logo{
+  height: 10%;
+  width: 10%;
+  background-image: url("img/grace_logo.png");
 }
 
 .sidemenu{
-  width: 20%;
-  background-color: #FF9E00;
+  width: 21%;
   padding: 1%;
-  background-image: linear-gradient(#e2a560, #240046);
   overflow: auto;
 }
 /* Hide the scrollbar */
@@ -41,7 +44,6 @@
   padding: 3%;
   font-weight: 800;
   background-image: linear-gradient(#e2a5602b, #5b139f31);
-
 }
 
 .side-menu-button{
@@ -73,24 +75,32 @@
 .chat-input-textarea{
   background-color: rgb(69, 51, 134);
   width: 75%;
-  height: 2%;
+  min-height: 50px;
+  resize: none;
   border-radius: 5px;
   border: none;
   border-color: none;
-  margin: 1%;
   margin-left: 21%;
   position: center;
   outline: none;
-  box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
-  padding: 0.8%;
+  box-shadow: 0 0 6px 0 rgba(191,169,169,0.7);
+  padding: 0.4%;
   color: white;
   font-size: 1em;
+  overflow: hidden; /* hide any overflow */
+}
+
+.chat-input-textarea:focus {
+  /* allow overflowing when the textarea is focused */
+  overflow: auto;
+  height: auto;
 }
 @media (max-width: 768px) {
   .chat-input-textarea{
     background-color: rgb(69, 51, 134);
-    width: 80%;
-    height: 5%;
+    width: 90%;
+    height: auto;
+    resize: none;
     border-radius: 5px;
     border: none;
     border-color: none;
@@ -201,13 +211,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.478);
+  background-color: rgba(194, 100, 152, 0.28);
   color: white;
   padding: 3rem;
   border-radius: 1.6rem;
   text-align: left;
   width: 60%;
-  word-wrap: break-word;
+  word-wrap: break-word;  
   }
   .empty-chat h3{
     color: rgba(252, 84, 0, 0.848);

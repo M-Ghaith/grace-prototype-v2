@@ -14,24 +14,21 @@ function App() {
     setIsTyping(false);
   }
 
-
   async function handleSubmit(e){
     e.preventDefault();
     if(!input.trim()){
       return;
     }
     const updateChatLog = [...chatLog, {role: "user", content: `${input}`}]
-    console.log("Chat log: ", updateChatLog);
     await setChatLog(updateChatLog);
     await setInput("");
 
-    const delay = Math.floor(Math.random() * 1500)+500;
-    setTimeout(()=>{
-      setIsTyping(true);
-    }, delay);
-
     try {
-      const response = await fetch("https://grace-prototype.onrender.com", {
+      const delay_user = Math.floor(Math.random() * 1500) + 500;
+      await setTimeout(()=>{
+        setIsTyping(true);
+      }, delay_user);
+      const response = await fetch("http://localhost:3080", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -43,26 +40,31 @@ function App() {
       const data = await response.json();
       const assistantMessage = { role: "assistant", content: data.message.content};
       const updatedChatLogWithAssistantMessage = [...updateChatLog, assistantMessage];
-      const delay = Math.max(500, assistantMessage.content.length * 5);      
-      setTimeout(() => {
+      const delay = Math.max(500, assistantMessage.content.length * 2);      
+      await setTimeout(() => {
         setChatLog(updatedChatLogWithAssistantMessage);
         setIsTyping(false);
       }, delay);
     } catch (error) {
       console.error("React: API connection failed.");
-      setIsTyping(false); // Set typing indicator to false after API call is completed
       const errorMessage = { 
         role: "assistant", content: "Ops, something went wrong! Please say again." 
       };
       const updatedChatLogWithError = [...updateChatLog, errorMessage];
       await setChatLog(updatedChatLogWithError);
-      return;
+      await setIsTyping(false);
     }
   }
 
   useEffect(() => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
   }, [chatLog])
+
+  useEffect(() => {
+    if (isTyping) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  }, [isTyping]);
 
   return (
     <div className="App">
@@ -78,8 +80,8 @@ function App() {
           <h4>Send one message at a time.</h4>
           <div className='letop'><p>If Grace stops to respond, please send a follow-up message such as "Are you still there?" without having to refresh the page to save your conversation.</p></div>
           <h4>We recommend using a desktop computer for a better user experience.</h4>
-          <p>While we have taken measures to ensure its functionality and privacy, it may still have limitations, and issues.</p>
-          <p>If you encounter any problems or have concerns regarding your participation in the study or the functionality of the prototype, please do not hesitate to contact us.</p>
+          <p>While we have taken measures to ensure its functionality and privacy, it still have limitations.</p>
+          <p>If you encounter any problems or have concerns please do not hesitate to contact us.</p>
           <a href='info@grace-ai.co'>info@grace-ai.co</a>
         </div>
       </aside>
@@ -89,7 +91,7 @@ function App() {
           <div className="grace_logo"></div>
           <h3>This is a limited prototype and does not represent the final product.</h3>
           <p>We are actively working to ensure a smoother and more enjoyable experience.</p>
-          <p>Your personal information will not be collected or shared, and your chat is not saved on our servers to ensure privacy and confidentiality.</p>
+          <p>Your personal information will not be collected and your chat is not saved on our server to ensure privacy and confidentiality.</p>
         </div>
         )}
         <div className="chat-log" >
@@ -110,13 +112,19 @@ function App() {
       </section>
       <div className="chat-input-holder">
           <form onSubmit={handleSubmit}>
-            <input
-              value = {input}
-              onChange = {(e) => setInput(e.target.value)}
-              className="chat-input-textarea"
-              placeholder='Press enter to send your message'
-              rows="1">
-            </input>
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="chat-input-textarea"
+            placeholder="Press Enter to send your message"
+            rows="1"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
+          ></textarea>
           </form>
         </div>
     </div>
