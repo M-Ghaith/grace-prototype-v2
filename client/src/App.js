@@ -1,6 +1,7 @@
 import './App.css';
 import './normal.css';
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useRef, useCallback} from 'react';
+import ChatMessage from './ChatMessage';
 
 function App() {
 
@@ -14,6 +15,13 @@ function App() {
     setIsTyping(false);
   }
 
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  }, [handleSubmit]);
+
   async function handleSubmit(e){
     e.preventDefault();
     if(!input.trim()){
@@ -24,10 +32,12 @@ function App() {
     await setInput("");
 
     try {
+
       const delay_user = Math.floor(Math.random() * 1500) + 500;
       await setTimeout(()=>{
         setIsTyping(true);
       }, delay_user);
+
       const response = await fetch("http://localhost:3080", {
         method: "POST",
         headers: {
@@ -37,28 +47,33 @@ function App() {
           prompt: updateChatLog
         })
       });
+
       const data = await response.json();
       const assistantMessage = { role: "assistant", content: data.message.content};
       const updatedChatLogWithAssistantMessage = [...updateChatLog, assistantMessage];
-      const delay = Math.max(500, assistantMessage.content.length * 2);      
+
+      const delay = Math.max(500, assistantMessage.content.length * 2);
       await setTimeout(() => {
         setChatLog(updatedChatLogWithAssistantMessage);
         setIsTyping(false);
       }, delay);
+
     } catch (error) {
-      console.error("React: API connection failed.");
+      // TODO: the error should not update the chatlog state. Create new array for errors.
+      console.error("React: API connection failed.", error);
       const errorMessage = { 
         role: "assistant", content: "Ops, something went wrong! Please say again." 
       };
       const updatedChatLogWithError = [...updateChatLog, errorMessage];
       await setChatLog(updatedChatLogWithError);
-      await setIsTyping(false);
+      setIsTyping(false);
+
     }
   }
 
   useEffect(() => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-  }, [chatLog])
+  }, [chatLog.length])
 
   useEffect(() => {
     if (isTyping) {
@@ -118,38 +133,12 @@ function App() {
             className="chat-input-textarea"
             placeholder="Press Enter to send your message"
             rows="1"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                handleSubmit(e);
-              }
-            }}
+            onKeyDown = {handleKeyDown}
           ></textarea>
           </form>
         </div>
     </div>
   );
 }
-
-const ChatMessage = ({content}) => {
-  const lines = content.content.split("\n");
-  return (
-    <div
-      key={content.timestamp || Date.now()} // Use timestamp as key or generate new one
-      className={`chat-message ${
-        content.role === "assistant" ? "chatgpt" : ""
-      } ${content.role}`}
-    >
-      <div className="chat-message-center">
-        <div className={`avatar ${content.role === "assistant" ? "chatgpt" : ""}`}>
-        </div>
-        <div className="message">
-          {lines.map((line, index) => (<div key={index}>{line}</div>))}
-          </div>
-      </div>
-    </div>
-  );
-};
-
 
 export default App;
